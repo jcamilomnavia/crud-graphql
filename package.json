@@ -1,0 +1,26 @@
+{
+  "name": "expressproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "lint": "standard --fix",
+    "start": "sh run_dev.sh"
+  },
+  "author": "jcamilomnavia",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "babel-eslint": "^10.0.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19",
+    "standard": "^12.0.1"
+  },
+  "standard":{
+    "parser":"babel-eslint"
+  }
+}
