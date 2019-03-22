@@ -8,8 +8,10 @@ app.get('/', (req, res) => {
   res.send('Hello')
 })
 app.get('/cats', (req, res) => {
+  const jsonstring = '{"saludo":"hola"}'
+  const jsonconverted = JSON.parse(jsonstring)
   res.status(200).send({
-    cats: 'cats'
+    cats: jsonconverted.saludo
   })
 })
 app.listen(PORT, () => {
