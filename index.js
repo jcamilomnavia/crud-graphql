@@ -1,21 +1,49 @@
-const express = require('express')
+//  import { GraphQLServer } from 'graphql-yoga'
+// ... or using `require()`
+const { GraphQLServer } = require('graphql-yoga')
+const { importSchema } = require('graphql-import')
+const { makeExecutableSchema } = require('graphql-tools')
 const db = require('./services/db')
-const userRoutes = require('./routes/userRoutes')
-
+const express = require('express')
+var graphQLHTTP = require('express-graphql')  
 const PORT = process.env.PORT
 
-const app = express()
 const dbConnection = db.connectDB()
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-
-app.use('/user', userRoutes)
 
 dbConnection.then(() => {
   console.log('connected to DB')
 })
+const typeDefs = importSchema('./schemas.graphql')
+//  const query = require('./resolvers/query')
 
-app.listen(PORT, () => {
-  console.log(`Connected to ${PORT}`)
+// const mock = require('./mock')
+// const resolvers = {
+//   Query: {
+//     hello: (_, { name }) => `Hello ${name || 'World'}`,
+//     Sum: (_, { a, b }) => (a + b),
+//     User: (_, { data }) => {
+//       return { name: data.name, lastName: data.lastName, email: data.email }
+//     },
+//     // Users:(_) => mock
+//     SearchUsers: (_, { key }) => mock.filter((user) => user.name.includes(key))
+//   }
+// }
+const resolvers = require('./resolvers')
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
 })
+
+// const server = new GraphQLServer({ schema })
+// server.start(() => console.log('Server is running on localhost:4000'))
+var app = express()
+app.use('/', graphQLHTTP({ schema: schema, pretty: true }))
+  
+app.listen(PORT, () => {
+  console.log(`GraphQL Server is now running on localhost:${PORT}`);
+})
+
+// dbConnection.then(() => {
+//   console.log('connected to DB')
+// })
