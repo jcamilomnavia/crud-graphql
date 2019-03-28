@@ -1,11 +1,11 @@
 //  import { GraphQLServer } from 'graphql-yoga'
 // ... or using `require()`
+// const express = require('express')
+// var graphQLHTTP = require('express-graphql')
 const { GraphQLServer } = require('graphql-yoga')
 const { importSchema } = require('graphql-import')
 const { makeExecutableSchema } = require('graphql-tools')
 const db = require('./services/db')
-const express = require('express')
-var graphQLHTTP = require('express-graphql')  
 const PORT = process.env.PORT
 
 const dbConnection = db.connectDB()
@@ -13,7 +13,33 @@ const dbConnection = db.connectDB()
 dbConnection.then(() => {
   console.log('connected to DB')
 })
+
 const typeDefs = importSchema('./schemas.graphql')
+const resolvers = require('./resolvers')
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+})
+
+const server = new GraphQLServer({ schema })
+
+server.start({ port: PORT }, () => {
+  console.log(`Server is running on localhost:${PORT}`)
+})
+// const server = new GraphQLServer({ schema })
+// server.start(() => console.log('Server is running on localhost:4000'))
+// var app = express()
+// app.use('/', graphQLHTTP({ schema: schema, pretty: true }))
+
+// app.listen(PORT, () => {
+//   console.log(`GraphQL Server is now running on localhost:${PORT}`);
+// })
+
+// dbConnection.then(() => {
+//   console.log('connected to DB')
+// })
+
 //  const query = require('./resolvers/query')
 
 // const mock = require('./mock')
@@ -28,22 +54,3 @@ const typeDefs = importSchema('./schemas.graphql')
 //     SearchUsers: (_, { key }) => mock.filter((user) => user.name.includes(key))
 //   }
 // }
-const resolvers = require('./resolvers')
-
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers
-})
-
-// const server = new GraphQLServer({ schema })
-// server.start(() => console.log('Server is running on localhost:4000'))
-var app = express()
-app.use('/', graphQLHTTP({ schema: schema, pretty: true }))
-  
-app.listen(PORT, () => {
-  console.log(`GraphQL Server is now running on localhost:${PORT}`);
-})
-
-// dbConnection.then(() => {
-//   console.log('connected to DB')
-// })
