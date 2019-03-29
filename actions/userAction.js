@@ -10,7 +10,7 @@ const createUser = (data) => {
 }
 
 const updateUser = (id, data) => {
-  return UserSchema.findOneAndUpdate(id, { $set: data }, { new: true })
+  return UserSchema.findByIdAndUpdate(id, { $set: data }, { new: true })
     .populate({ path: 'posts' })
     .then((userUpdated) => userUpdated)
     .catch((err) => {
