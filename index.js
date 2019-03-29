@@ -21,6 +21,8 @@ const schema = makeExecutableSchema({
 
 dbConnection.then(() => {
   console.log('connected to DB')
+}).catch((err) => {
+  console.log(err)
 })
 
 const server = new GraphQLServer({ schema })
