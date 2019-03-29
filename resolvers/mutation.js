@@ -1,16 +1,14 @@
-const user = require('../models/user')
+const { userAction, postAction } = require('../actions')
 
-const createUsers = (_, { data }) => {
-  const { name, email, level } = data
-  return user.create({ name, email, level })
-    .then((users) => {
-      return users
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
+const CreateUser = (_, args) => userAction.createUser(args.data)
+const UpdateUser = (_, args) => userAction.updateUser(args.id, args.data)
+
+const CreatePost = (_, args) => postAction.createPost(args.data)
+const UpdatePost = (_, args) => postAction.updatePost(args.id, args.data)
 
 module.exports = {
-  createUsers
+  CreateUser,
+  UpdateUser,
+  CreatePost,
+  UpdatePost
 }

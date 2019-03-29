@@ -1,26 +1,26 @@
 const mock = require('../mock')
-const user = require('../models/user')
+const { userAction, postAction } = require('../actions')
 
 const hello = (_, { name }) => `Hello ${name || 'World'}`
-const Sum = (_, { a, b }) => (a + b)
-const User = (_, { data }) => { return { name: data.name, lastName: data.lastName, email: data.email } }
-// Users:(_) => mock
-const SearchUsers = (_, { key }) => mock.filter((user) => user.name.includes(key))
 
-const getUsers = (_) => {
-  user.find().exec()
-    .then((users) => {
-      return users
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
+const Sum = (_, { value1, value2 }) => (value1 + value2)
+
+// const User = (_, { data }) => ({ name: data.name, lastName: data.lastName, email: data.email })
+
+// const Users = (_) => mock
+
+const SearchUser = (_, { key }) => mock.filter((user) => user.name.includes(key))
+
+const User = (_, args) => userAction.user(args.id)
+const Users = (_) => userAction.users()
+
+const Posts = (_) => postAction.posts()
 
 module.exports = {
   hello,
   Sum,
   User,
-  SearchUsers,
-  getUsers
+  Users,
+  SearchUser,
+  Posts
 }

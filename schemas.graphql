@@ -1,17 +1,39 @@
 type Query {
     hello(name: String): String!,
     Sum(a:Int,b:Int):Int!,
-    User(data:UserInput):User,
+    User(id:ID!):User,
     Users:[User],
-    SearchUsers(key:String!):[User],
+    SearchUser(key:String!):[User],
     getUsers:User
+    Posts:[Post]
   }
 
+type Mutation{
+    CreateUser(data: UserInput):User
+    UpdateUser(id:ID!, data: UserUpdateInput!): User
+
+    CreatePost(data: PostInput!): Post
+    UpdatePost(id:ID!, data:PostUpdateInput!):Post
+}
 type User{
     _id:ID
+    name:String!
+    email: String!
+    level: String!
+    password:String!
+    course:[Course]
+    posts:[Post]
+}
+
+type Course{
     name:String
-    email: String
-    level: String
+    hour:String
+}
+
+type Post{
+    _id:ID
+    title:String!
+    content:String!
 }
 
 input UserInput{
@@ -20,6 +42,26 @@ input UserInput{
     level: String!
 }
 
-type Mutation{
-    createUsers(data: UserInput):User
+input UserUpdateInput{
+    name:String
+    email:String
+    level:Int
+    password:String
+    course:[CourseInput]
+    posts:[ID]
+}
+
+input CourseInput{
+    name:String
+    hour:String
+}
+
+input PostInput{
+    title:String!
+    content:String!
+}
+
+input PostUpdateInput{
+    title:String
+    content:String
 }
