@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "devql": "nodemon -e js,json,graphql index.js",
     "lint": "standard --fix",
-    "start": "sh run_dev.sh"
+    "startDev": "sh run_dev.sh",
+    "start": "nodemon index.js"
   },
   "author": "jcamilomnavia",
   "license": "ISC",
