@@ -40,6 +40,7 @@ input UserInput{
     name:String!
     email: String!
     level: String!
+    password: String!
 }
 
 input UserUpdateInput{
