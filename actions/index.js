@@ -1,5 +1,5 @@
 const userAction = require('./userAction')
-const postAction = require('./PostAction')
+const postAction = require('./postAction')
 
 module.exports = {
   userAction,
