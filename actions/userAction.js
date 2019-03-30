@@ -1,4 +1,4 @@
-const UserSchema = require('../models/User')
+const UserSchema = require('../models/user')
 
 const createUser = (data) => {
   const { name, email, level, password } = data
