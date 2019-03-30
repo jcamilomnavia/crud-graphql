@@ -9,7 +9,7 @@
     "devql": "nodemon -e js,json,graphql index.js",
     "lint": "standard --fix",
     "startDev": "sh run_dev.sh",
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "author": "jcamilomnavia",
   "license": "ISC",
