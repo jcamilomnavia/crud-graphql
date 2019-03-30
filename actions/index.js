@@ -1,4 +1,4 @@
-const userAction = require('./UserAction')
+const userAction = require('./userAction')
 const postAction = require('./PostAction')
 
 module.exports = {
