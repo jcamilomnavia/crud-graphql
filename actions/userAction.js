@@ -39,9 +39,14 @@ const users = () => {
     })
 }
 
+const getUserByEmail = (email) => {
+  return UserSchema.findOne({ email: email })
+}
+
 module.exports = {
   createUser,
   updateUser,
   user,
-  users
+  users,
+  getUserByEmail
 }

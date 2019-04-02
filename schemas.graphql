@@ -6,6 +6,7 @@ type Query {
     SearchUser(key:String!):[User],
     getUsers:User
     Posts:[Post]
+    Login(email:String, password: String):User
   }
 
 type Mutation{
