@@ -3,7 +3,6 @@ type Query {
     Sum(a:Int,b:Int):Int!,
     User(id:ID!):User,
     Users:[User],
-    SearchUser(key:String!):[User],
     getUsers:User
     Posts:[Post]
     Login(email:String, password: String):User
